@@ -1,5 +1,5 @@
 % Length of Message = k * (k + 1) / 2 + k * (d - k)
-% Parameter = [n, k, d] PM-MBR in GF(2^gfb)
+% Parameter = [n, k, d] MBR in GF(2^exp)
 % failedNode = ID of the failed Node
 % Helpers are randomly generated
 % Vandemonder Matrix as Generator Matrix

@@ -3,7 +3,7 @@
 % failedNode = ID of the failed Node
 % Helpers are randomly generated
 % Length of Message = k * (d - k + 1)
-% Parameter = [n, k, d >= 2k -2] PM-MSR in GF(2^gfb)
+% Parameter = [n, k, d >= 2k - 2] MSR in GF(2^exp)
 % failedNode = ID of the failed Node
 % Helpers are randomly generated
 % Modified Vandemonder Matrix as Generator Matrix
