@@ -25,7 +25,8 @@ function [codewordMatrix, repairedMessage] = MBR(Parameter)
     Helpers = HelperNodes(Parameter, failedNode);
     
     % Regenerating
-    [helperMessage, helperMatrix] = Helper(codewordMatrix, generatorMatrix, failedNode, Helpers, GF);
+    [helperMessage, helperMatrix] = Helper(codewordMatrix, generatorMatrix,...
+                                            failedNode, Helpers, GF);
     repairedMessage = transpose(helperMatrix \ helperMessage);
     
 end

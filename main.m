@@ -1,5 +1,5 @@
-codeType = 'MBR';
-Parameter = [70 40 60];
+codeType = 'MSR';
+Parameter = [70 30 60];
 
 % Failed node ID
 failedNode = RandFailedNode(Parameter);
@@ -26,7 +26,8 @@ if (strcmp(codeType, 'MBR'))
     Helpers = HelperNodes(Parameter, failedNode);
     
     % Regenerating
-    [helperMessage, helperMatrix] = Helper(codewordMatrix, generatorMatrix, failedNode, Helpers, GF);
+    [helperMessage, helperMatrix] = Helper(codewordMatrix,...
+                                    generatorMatrix, failedNode, Helpers, GF);
     repairedMessage = transpose(helperMatrix \ helperMessage);
 
 elseif (strcmp(codeType, 'MSR'))
@@ -43,10 +44,13 @@ elseif (strcmp(codeType, 'MSR'))
     Helpers = HelperNodes(Parameter, failedNode);
 
     % Regenerating
-    [helperMessage, helperMatrix] = Helper(codewordMatrix, generatorMatrix, failedNode, Helpers, GF);
+    [helperMessage, helperMatrix] = Helper(codewordMatrix,...
+                                    generatorMatrix, failedNode, Helpers, GF);
     repairedMessageRe = helperMatrix \ helperMessage;
     flambda = generatorMatrix(failedNode, 1);
-    repairedMessage = transpose([flambda * (repairedMessageRe(1 : (Parameter(2) - 1), :)) + (repairedMessageRe(Parameter(2) : (2 * Parameter(2) - 2), :)); repairedMessageRe((2 * Parameter(2) - 1) : Parameter(3), :)]);
+    repairedMessage = transpose([flambda * (repairedMessageRe(1 : (Parameter(2) - 1), :))...
+                      + (repairedMessageRe(Parameter(2) : (2 * Parameter(2) - 2), :));...
+                      repairedMessageRe((2 * Parameter(2) - 1) : Parameter(3), :)]);
     
 else
     error('wrong code type!!');

@@ -28,9 +28,12 @@ function [codewordMatrix, repairedMessage] = MSR(Parameter)
     Helpers = HelperNodes(Parameter, failedNode);
 
     % Regenerating
-    [helperMessage, helperMatrix] = Helper(codewordMatrix, generatorMatrix, failedNode, Helpers, GF);
+    [helperMessage, helperMatrix] = Helper(codewordMatrix,...
+                                    generatorMatrix, failedNode, Helpers, GF);
     repairedMessageRe = helperMatrix \ helperMessage;
     flambda = generatorMatrix(failedNode, 1);
-    repairedMessage = transpose([flambda * (repairedMessageRe(1 : (Parameter(2) - 1), :)) + (repairedMessageRe(Parameter(2) : (2 * Parameter(2) - 2), :)); repairedMessageRe((2 * Parameter(2) - 1) : Parameter(3), :)]);
+    repairedMessage = transpose([flambda * (repairedMessageRe(1 : (Parameter(2) - 1), :))...
+                    + (repairedMessageRe(Parameter(2) : (2 * Parameter(2) - 2), :));...
+                    repairedMessageRe((2 * Parameter(2) - 1) : Parameter(3), :)]);
     
 end
