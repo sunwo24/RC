@@ -3,20 +3,30 @@
 % failedNode = ID of the failed Node
 % Helpers are randomly generated
 % Vandemonder Matrix as Generator Matrix
-function [codewordMatrix, repairedMessage] = MBR(Parameter)
+function MBR(Parameter)
     
     % Generate message and GF
     [message, GF] = OrgnizedMessage('MBR', Parameter);
 
     % Generator Matrix n * d
-    % generatorMatrix = GeneratorMatrixMBR(Parameter, GF);
-    generatorMatrix = SysGeneratorMatrixMBR(Parameter, GF);
+    generatorMatrix = GeneratorMatrixMBR(Parameter, GF);
+    %generatorMatrix = SysGeneratorMatrixMBR(Parameter, GF);
 
     % Message Matrix d * d
-    messageMatrix = MessageMatrixMBR(message, Parameter, GF);
+    messageMatrix = MessageMatrixMBR(message, Parameter, GF)
 
     % Encode
-    codewordMatrix = generatorMatrix * messageMatrix;
+    codewordMatrix = generatorMatrix * messageMatrix
+
+    % Decode
+    [decodeMatrix, dataCollectorMatrix] = DataCollector(codewordMatrix, generatorMatrix, Parameter);
+    decodedMessageMatrix = DecodeMBR(decodeMatrix, dataCollectorMatrix, Parameter);
+
+    if (isequal(messageMatrix(1:Parameter(2), :), decodedMessageMatrix))
+        disp('Decoding success!');
+    else
+        disp('Decoding fails!');
+    end
 
     % Failed node ID
     failedNode = RandFailedNode(Parameter)
@@ -27,6 +37,12 @@ function [codewordMatrix, repairedMessage] = MBR(Parameter)
     % Regenerating
     [helperMessage, helperMatrix] = Helper(codewordMatrix, generatorMatrix,...
                                             failedNode, Helpers, GF);
-    repairedMessage = transpose(helperMatrix \ helperMessage);
+    repairedMessage = transpose(helperMatrix \ helperMessage)
+
+    if (isequal(codewordMatrix(failedNode, :), repairedMessage))
+        disp('Regenerating success!');
+    else
+        disp('Regenerating fails!');
+    end
     
 end

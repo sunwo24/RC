@@ -6,7 +6,7 @@ function [message, GF] = OrgnizedMessage(codeType, Parameter)
   [gfExp, U] = BaseGF(codeType, Parameter);
   GF = GaloisField(gfExp);
 
-  message = zeros(U);
+  message = zeros(1, U);
 
   for i = 1 : U
     message(i) = i;
