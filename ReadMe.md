@@ -16,7 +16,7 @@ Parameter of code is defined as below:
 ```
   Parameter = [n, k, d]
 ```
-Result of regenerating and non-systemetical decoding will showed.
+Results of regenerating and non-systemetical decoding will be showed.
 
 #### MSR
 * Implentation of exact regenerating for (n, k, d >= 2k - 2) MSR.
@@ -25,12 +25,13 @@ Result of regenerating and non-systemetical decoding will showed.
 * Failed node and helpers are generated randomly.
 
 ```
-  [codewordMatrix, repairedMessage] = MSR(Parameter)
+  MSR(Parameter)
 ```
 Parameter of code is defined as below:
 ```
   Parameter = [n, k, d]
 ```
+Result of regenerating will be showed.
 
 #### main
 * Generator matrix is defined for each parameter at first time running. For later encoding of messages with same parameter, generated matrix will not be defined. 

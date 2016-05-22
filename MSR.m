@@ -7,7 +7,7 @@
 % failedNode = ID of the failed Node
 % Helpers are randomly generated
 % Modified Vandemonder Matrix as Generator Matrix
-function [codewordMatrix, repairedMessage] = MSR(Parameter)
+function MSR(Parameter)
     
      % Generate message and GF
     [message, GF] = OrgnizedMessage('MSR', Parameter);
@@ -16,10 +16,10 @@ function [codewordMatrix, repairedMessage] = MSR(Parameter)
     generatorMatrix = GeneratorMatrixMSR(Parameter, GF);
 
     % Message Matrix d * d
-    messageMatrix = MessageMatrixMSR(message, Parameter, GF);
+    messageMatrix = MessageMatrixMSR(message, Parameter, GF)
 
     % Encode
-    codewordMatrix = generatorMatrix * messageMatrix;
+    codewordMatrix = generatorMatrix * messageMatrix
 
     % Failed node ID
     failedNode = RandFailedNode(Parameter)
@@ -34,6 +34,12 @@ function [codewordMatrix, repairedMessage] = MSR(Parameter)
     flambda = generatorMatrix(failedNode, 1);
     repairedMessage = transpose([flambda * (repairedMessageRe(1 : (Parameter(2) - 1), :))...
                     + (repairedMessageRe(Parameter(2) : (2 * Parameter(2) - 2), :));...
-                    repairedMessageRe((2 * Parameter(2) - 1) : Parameter(3), :)]);
+                    repairedMessageRe((2 * Parameter(2) - 1) : Parameter(3), :)])
+
+    if (isequal(codewordMatrix(failedNode, :), repairedMessage))
+        disp('Regenerating success!');
+    else
+        disp('Regenerating fails!');
+    end
     
 end
