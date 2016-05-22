@@ -10,12 +10,13 @@
 * Failed node and helpers are generated randomly.
 
 ```
-  [codewordMatrix, repairedMessage] = MBR(Parameter)
+  MBR(Parameter)
 ```
 Parameter of code is defined as below:
 ```
   Parameter = [n, k, d]
 ```
+Result of regenerating and non-systemetical decoding will showed.
 
 #### MSR
 * Implentation of exact regenerating for (n, k, d >= 2k - 2) MSR.
