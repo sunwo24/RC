@@ -1,5 +1,5 @@
-codeType = 'MSR';
-Parameter = [70 30 60];
+codeType = 'MBR';
+Parameter = [7 3 5];
 
 % Failed node ID
 failedNode = RandFailedNode(Parameter);
