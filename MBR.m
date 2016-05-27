@@ -21,7 +21,7 @@ function MBR(Parameter)
     % Decode
     [decodeMatrix, dataCollectorMatrix] = DataCollector(codewordMatrix, generatorMatrix, Parameter);
     decodedMessageMatrix = DecodeMBR(decodeMatrix, dataCollectorMatrix, Parameter);
-    decodeMessage = GetMessageMBR(decodedMessageMatrix, Parameter, GF)
+    decodeMessage = GetMessageMBR(decodedMessageMatrix, Parameter, GF);
 
     if (isequal(message, decodeMessage))
         disp('Decoding success!');
