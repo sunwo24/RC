@@ -43,9 +43,9 @@ function messageMatrix = DecodeMSR(DecodeMatrix, DataCollectorMatrix, Parameter)
         decodeMatrixPhiT = transpose(decodeMatrixPhi);
         index = true(1, size(decodeMatrixPhiT,2));
         index(i) = false;
-        messageMatrixS1(i, :) = messageMatrixS1(i, :)/decodeMatrixPhiT(:, index);
+        messageMatrixS1(i, :) = messageMatrixS1(i, :) / decodeMatrixPhiT(:, index);
     end
-    messageMatrixS1 = decodeMatrixPhi(1:2, :) \ messageMatrixS1(1:2,:);
+    messageMatrixS1 = decodeMatrixPhi(1:(end - 1), :) \ messageMatrixS1(1:(end - 1),:);
 
     messageMatrixS2 = transpose(messageMatrixS2k);
     messageMatrixS2 = messageMatrixS2k(:, 1:(end - 1)) + messageMatrixS2(:, 2:end);
@@ -55,7 +55,7 @@ function messageMatrix = DecodeMSR(DecodeMatrix, DataCollectorMatrix, Parameter)
         index(i) = false;
         messageMatrixS2(i, :) = messageMatrixS2(i, :)/decodeMatrixPhiT(:, index);
     end
-    messageMatrixS2 = decodeMatrixPhi(1:2, :) \ messageMatrixS2(1:2,:);
+    messageMatrixS2 = decodeMatrixPhi(1:(end - 1), :) \ messageMatrixS2(1:(end - 1),:);
 
     if(Parameter(3) > 2 * Parameter(2) - 2)
         messageMatrix = [messageMatrixS1, (messageMatrixS1(:, 1) - messageMatrixS1(:, 1));...

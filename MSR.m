@@ -24,8 +24,9 @@ function MSR(Parameter)
     % Decode
     [decodeMatrix, dataCollectorMatrix] = DataCollector(codewordMatrix, generatorMatrix, Parameter);
     decodedMessageMatrix = DecodeMSR(decodeMatrix, dataCollectorMatrix, Parameter)
+    decodeMessage = GetMessageMSR(decodedMessageMatrix, Parameter, GF);
 
-    if (isequal(messageMatrix(:, 1:(Parameter(2) - 1)), decodedMessageMatrix))
+    if (isequal(message, decodeMessage))
         disp('Decoding success!');
     else
         disp('Decoding fails!');
