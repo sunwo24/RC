@@ -37,8 +37,8 @@ function messageMatrix = DecodeMSR(DecodeMatrix, DataCollectorMatrix, Parameter)
         end
     end
 
-    messageMatrixS1 = transpose(messageMatrixS1k);
-    messageMatrixS1 = messageMatrixS1k(:, 1:(end - 1)) + messageMatrixS1(:, 2:end);
+    tmp = transpose(messageMatrixS1k);
+    messageMatrixS1 = messageMatrixS1k(:, 1:(end - 1)) + tmp(:, 2:end);
     for i = 1 : size(messageMatrixS1, 1)
         decodeMatrixPhiT = transpose(decodeMatrixPhi);
         index = true(1, size(decodeMatrixPhiT,2));
@@ -47,8 +47,8 @@ function messageMatrix = DecodeMSR(DecodeMatrix, DataCollectorMatrix, Parameter)
     end
     messageMatrixS1 = decodeMatrixPhi(1:(end - 1), :) \ messageMatrixS1(1:(end - 1),:);
 
-    messageMatrixS2 = transpose(messageMatrixS2k);
-    messageMatrixS2 = messageMatrixS2k(:, 1:(end - 1)) + messageMatrixS2(:, 2:end);
+    tmp = transpose(messageMatrixS2k);
+    messageMatrixS2 = messageMatrixS2k(:, 1:(end - 1)) + tmp(:, 2:end);
     for i = 1 : size(messageMatrixS2, 1)
         decodeMatrixPhiT = transpose(decodeMatrixPhi);
         index = true(1, size(decodeMatrixPhiT,2));

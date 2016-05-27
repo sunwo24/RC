@@ -38,7 +38,7 @@ function MBR(Parameter)
     % Regenerating
     [helperMessage, helperMatrix] = Helper(codewordMatrix, generatorMatrix,...
                                             failedNode, Helpers, GF);
-    repairedMessage = transpose(helperMatrix \ helperMessage)
+    repairedMessage = transpose(helperMatrix \ helperMessage);
 
     if (isequal(codewordMatrix(failedNode, :), repairedMessage))
         disp('Regenerating success!');

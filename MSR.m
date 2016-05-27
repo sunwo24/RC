@@ -19,11 +19,11 @@ function MSR(Parameter)
     messageMatrix = MessageMatrixMSR(message, Parameter, GF)
 
     % Encode
-    codewordMatrix = generatorMatrix * messageMatrix;
+    codewordMatrix = generatorMatrix * messageMatrix
 
     % Decode
     [decodeMatrix, dataCollectorMatrix] = DataCollector(codewordMatrix, generatorMatrix, Parameter);
-    decodedMessageMatrix = DecodeMSR(decodeMatrix, dataCollectorMatrix, Parameter)
+    decodedMessageMatrix = DecodeMSR(decodeMatrix, dataCollectorMatrix, Parameter);
     decodeMessage = GetMessageMSR(decodedMessageMatrix, Parameter, GF);
 
     if (isequal(message, decodeMessage))
@@ -33,7 +33,7 @@ function MSR(Parameter)
     end
 
     % Failed node ID
-    failedNode = RandFailedNode(Parameter);
+    failedNode = RandFailedNode(Parameter)
 
     % Helper Nodes /randomly
     Helpers = HelperNodes(Parameter, failedNode);
