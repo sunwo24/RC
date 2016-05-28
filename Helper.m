@@ -2,14 +2,14 @@ function [helperMessage, helperMatrix] = Helper(codewordMatrix, generatorMatrix,
 
     helperMessage = repmat(GF(1), length(Helpers), 1);
     helperMatrix = repmat(GF(1), length(Helpers), length(Helpers));
-    bandwidth = 0;
+    diskIO = 0;
 
     % Generate Helper-Vector
     for ind = 1 : length(Helpers)
         % Symboles on Helper nodes
         symboleHelper = codewordMatrix(Helpers(ind), :);
 
-        bandwidth = bandwidth + length(symboleHelper);
+        diskIO = diskIO + length(symboleHelper);
 
         % Coefficient of failed node
         coeffFailedNode = generatorMatrix(failedNode,...

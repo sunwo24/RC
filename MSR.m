@@ -15,19 +15,26 @@ function MSR(Parameter)
     % Generator Matrix n * d
     generatorMatrix = GeneratorMatrixMSR(Parameter, GF);
 
+    tic;
+
     % Message Matrix d * d
-    messageMatrix = MessageMatrixMSR(message, Parameter, GF)
+    messageMatrix = MessageMatrixMSR(message, Parameter, GF);
 
     % Encode
-    codewordMatrix = generatorMatrix * messageMatrix
+    codewordMatrix = generatorMatrix * messageMatrix;
+
+    EncodingTimer = toc
 
     % Decode
+    tic;
+
     [decodeMatrix, dataCollectorMatrix] = DataCollector(codewordMatrix, generatorMatrix, Parameter);
     decodedMessageMatrix = DecodeMSR(decodeMatrix, dataCollectorMatrix, Parameter);
     decodeMessage = GetMessageMSR(decodedMessageMatrix, Parameter, GF);
 
     if (isequal(message, decodeMessage))
         disp('Decoding success!');
+        DecodingTimer = toc
     else
         disp('Decoding fails!');
     end
@@ -36,10 +43,12 @@ function MSR(Parameter)
     failedNode = RandFailedNode(Parameter)
 
     % Helper Nodes /randomly
+    tic;
+
     Helpers = HelperNodes(Parameter, failedNode);
 
     % Regenerating
-    [helperMessage, helperMatrix, bandwidth] = Helper(codewordMatrix,...
+    [helperMessage, helperMatrix] = Helper(codewordMatrix,...
                                     generatorMatrix, failedNode, Helpers, GF);
     repairedMessageRe = helperMatrix \ helperMessage;
     flambda = generatorMatrix(failedNode, 1);
@@ -49,6 +58,7 @@ function MSR(Parameter)
 
     if (isequal(codewordMatrix(failedNode, :), repairedMessage))
         disp('Regenerating success!');
+        RegeneratingTimer = toc
     else
         disp('Regenerating fails!');
     end

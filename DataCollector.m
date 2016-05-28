@@ -4,5 +4,6 @@ function [decodeMatrix, dataCollectorMatrix] = DataCollector(CodewordMatrix, Gen
     % dataCollectorID = [1, 2, 3];
 
     dataCollectorMatrix = CodewordMatrix(dataCollectorID, :);
+    diskIO = size(dataCollectorMatrix, 1) * size(dataCollectorMatrix, 2);
 
     decodeMatrix = GeneratorMatrix(dataCollectorID, :);

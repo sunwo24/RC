@@ -12,19 +12,26 @@ function MBR(Parameter)
     generatorMatrix = GeneratorMatrixMBR(Parameter, GF);
     %generatorMatrix = SysGeneratorMatrixMBR(Parameter, GF);
 
+    tic;
+
     % Message Matrix d * d
-    messageMatrix = MessageMatrixMBR(message, Parameter, GF)
+    messageMatrix = MessageMatrixMBR(message, Parameter, GF);
 
     % Encode
-    codewordMatrix = generatorMatrix * messageMatrix
+    codewordMatrix = generatorMatrix * messageMatrix;
+
+    EncodingTimer = toc
 
     % Decode
+    tic;
+
     [decodeMatrix, dataCollectorMatrix] = DataCollector(codewordMatrix, generatorMatrix, Parameter);
     decodedMessageMatrix = DecodeMBR(decodeMatrix, dataCollectorMatrix, Parameter);
     decodeMessage = GetMessageMBR(decodedMessageMatrix, Parameter, GF);
 
     if (isequal(message, decodeMessage))
         disp('Decoding success!');
+        DecodingTimer = toc
     else
         disp('Decoding fails!');
     end
@@ -33,6 +40,8 @@ function MBR(Parameter)
     failedNode = RandFailedNode(Parameter)
 
     % Helper Nodes /randomly
+    tic;
+
     Helpers = HelperNodes(Parameter, failedNode);
     
     % Regenerating
@@ -42,6 +51,7 @@ function MBR(Parameter)
 
     if (isequal(codewordMatrix(failedNode, :), repairedMessage))
         disp('Regenerating success!');
+        RegeneratingTimer = toc
     else
         disp('Regenerating fails!');
     end
