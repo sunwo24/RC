@@ -26,6 +26,7 @@ function MBR(Parameter)
     tic;
 
     [decodeMatrix, dataCollectorMatrix] = DataCollector(codewordMatrix, generatorMatrix, Parameter);
+    DecodingBandwidth = size(dataCollectorMatrix, 1) * size(dataCollectorMatrix, 2)
     decodedMessageMatrix = DecodeMBR(decodeMatrix, dataCollectorMatrix, Parameter);
     decodeMessage = GetMessageMBR(decodedMessageMatrix, Parameter, GF);
 
@@ -47,6 +48,7 @@ function MBR(Parameter)
     % Regenerating
     [helperMessage, helperMatrix] = Helper(codewordMatrix, generatorMatrix,...
                                             failedNode, Helpers, GF);
+    RegeneratingBandwidth = size(helperMessage, 1) * size(helperMessage, 2)
     repairedMessage = transpose(helperMatrix \ helperMessage);
 
     if (isequal(codewordMatrix(failedNode, :), repairedMessage))

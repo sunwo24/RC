@@ -29,6 +29,7 @@ function MSR(Parameter)
     tic;
 
     [decodeMatrix, dataCollectorMatrix] = DataCollector(codewordMatrix, generatorMatrix, Parameter);
+    DecodingBandwidth = size(dataCollectorMatrix, 1) * size(dataCollectorMatrix, 2)
     decodedMessageMatrix = DecodeMSR(decodeMatrix, dataCollectorMatrix, Parameter);
     decodeMessage = GetMessageMSR(decodedMessageMatrix, Parameter, GF);
 
@@ -50,6 +51,7 @@ function MSR(Parameter)
     % Regenerating
     [helperMessage, helperMatrix] = Helper(codewordMatrix,...
                                     generatorMatrix, failedNode, Helpers, GF);
+    RegeneratingBandwidth = size(helperMessage, 1) * size(helperMessage, 2)
     repairedMessageRe = helperMatrix \ helperMessage;
     flambda = generatorMatrix(failedNode, 1);
     repairedMessage = transpose([flambda * (repairedMessageRe(1 : (Parameter(2) - 1), :))...
