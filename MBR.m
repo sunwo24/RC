@@ -45,5 +45,4 @@ function MBR(Parameter)
     else
         disp('Regenerating fails!');
     end
-    
 end

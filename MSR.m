@@ -39,7 +39,7 @@ function MSR(Parameter)
     Helpers = HelperNodes(Parameter, failedNode);
 
     % Regenerating
-    [helperMessage, helperMatrix] = Helper(codewordMatrix,...
+    [helperMessage, helperMatrix, bandwidth] = Helper(codewordMatrix,...
                                     generatorMatrix, failedNode, Helpers, GF);
     repairedMessageRe = helperMatrix \ helperMessage;
     flambda = generatorMatrix(failedNode, 1);

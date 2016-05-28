@@ -1,32 +1,44 @@
 codeType = 'MBR'
-Parameter = [7 3 5]
-
-% Failed node ID
-failedNode = RandFailedNode(Parameter);
+Parameter = [30 10 20]
 
 % GF(2^gfExp)
 [gfExp, U] = BaseGF(codeType, Parameter);
 GF = GaloisField(gfExp);
 
-n = 50;
-t = zeros(1, n);
+n = Parameter(1) - Parameter(3);
+regeneratingBandwidth = zeros(1, n);
+reconstructionBandwidth = zeros(1, n);
+totalBandwidthRegenerating = 0;
 
 if (strcmp(codeType, 'MBR'))
     % Generator Matrix n * d
     % generatorMatrix = GeneratorMatrixMBR(Parameter, GF);
     generatorMatrix = SysGeneratorMatrixMBR(Parameter, GF);
 
-    while n > 0
-        tic;
+    % Original message
+    message = RandMessage(gfExp, U);
 
-        % Original message
-        message = RandMessage(gfExp, U);
+    % Message Matrix d * d
+    messageMatrix = MessageMatrixMBR(message, Parameter, GF);
 
-        % Message Matrix d * d
-        messageMatrix = MessageMatrixMBR(message, Parameter, GF);
+    % Encode
+    codewordMatrix = generatorMatrix * messageMatrix;
 
-        % Encode
-        codewordMatrix = generatorMatrix * messageMatrix;
+    % Decode
+    [decodeMatrix, dataCollectorMatrix] = DataCollector(codewordMatrix, generatorMatrix, Parameter);
+    bandwidthReconstruction = size(dataCollectorMatrix, 1) * size(dataCollectorMatrix, 2);
+    decodedMessageMatrix = DecodeMBR(decodeMatrix, dataCollectorMatrix, Parameter);
+    decodeMessage = GetMessageMBR(decodedMessageMatrix, Parameter, GF);
+
+    if (isequal(message, decodeMessage))
+        disp('Decoding success!');
+    else
+        error('Decoding fails!');
+    end
+
+    for round = 1 : n
+        % Failed node ID
+        failedNode = RandFailedNode(Parameter);
 
         % Helper Nodes /randomly
         Helpers = HelperNodes(Parameter, failedNode);
@@ -34,6 +46,7 @@ if (strcmp(codeType, 'MBR'))
         % Regenerating
         [helperMessage, helperMatrix] = Helper(codewordMatrix,...
                                         generatorMatrix, failedNode, Helpers, GF);
+        bandwidthRegenerating = size(helperMessage, 1) * size(helperMessage, 2);
         repairedMessage = transpose(helperMatrix \ helperMessage);
 
         if (isequal(codewordMatrix(failedNode, :), repairedMessage))
@@ -42,36 +55,38 @@ if (strcmp(codeType, 'MBR'))
             error('Regenerating fails!');
         end
 
-        % Decode
-        [decodeMatrix, dataCollectorMatrix] = DataCollector(codewordMatrix, generatorMatrix, Parameter);
-        decodedMessageMatrix = DecodeMBR(decodeMatrix, dataCollectorMatrix, Parameter);
-        decodeMessage = GetMessageMBR(decodedMessageMatrix, Parameter, GF);
-
-        if (isequal(message, decodeMessage))
-            disp('Decoding success!');
-        else
-            error('Decoding fails!');
-        end
-
-        t(n) = toc;
-        n = n - 1;
+        totalBandwidthRegenerating = totalBandwidthRegenerating + bandwidthRegenerating;
+        regeneratingBandwidth(round) = totalBandwidthRegenerating;
+        reconstructionBandwidth(round) = bandwidthReconstruction;
     end
-
 elseif (strcmp(codeType, 'MSR'))
     % Generator Matrix n * d
     generatorMatrix = GeneratorMatrixMSR(Parameter, GF);
 
-    while n > 0
-        tic;
+    % Original message
+    message = RandMessage(gfExp, U);
 
-        % Original message
-        message = RandMessage(gfExp, U);
+    % Message Matrix d * d
+    messageMatrix = MessageMatrixMSR(message, Parameter, GF);
 
-        % Message Matrix d * d
-        messageMatrix = MessageMatrixMSR(message, Parameter, GF);
+    % Encode
+    codewordMatrix = generatorMatrix * messageMatrix;
 
-        % Encode
-        codewordMatrix = generatorMatrix * messageMatrix;
+    % Decode
+    [decodeMatrix, dataCollectorMatrix] = DataCollector(codewordMatrix, generatorMatrix, Parameter);
+    bandwidthReconstruction = size(dataCollectorMatrix, 1) * size(dataCollectorMatrix, 2);
+    decodedMessageMatrix = DecodeMSR(decodeMatrix, dataCollectorMatrix, Parameter);
+    decodeMessage = GetMessageMSR(decodedMessageMatrix, Parameter, GF);
+
+    if (isequal(message, decodeMessage))
+        disp('Decoding success!');
+    else
+        error('Decoding fails!');
+    end
+
+    for round = 1 : n
+        % Failed node ID
+        failedNode = RandFailedNode(Parameter);
 
         % Helper Nodes /randomly
         Helpers = HelperNodes(Parameter, failedNode);
@@ -79,6 +94,7 @@ elseif (strcmp(codeType, 'MSR'))
         % Regenerating
         [helperMessage, helperMatrix] = Helper(codewordMatrix,...
                                         generatorMatrix, failedNode, Helpers, GF);
+        bandwidthRegenerating = size(helperMessage, 1) * size(helperMessage, 2);
         repairedMessageRe = helperMatrix \ helperMessage;
         flambda = generatorMatrix(failedNode, 1);
         repairedMessage = transpose([flambda * (repairedMessageRe(1 : (Parameter(2) - 1), :))...
@@ -90,22 +106,19 @@ elseif (strcmp(codeType, 'MSR'))
         else
             error('Regenerating fails!');
         end
-
-        % Decode
-        [decodeMatrix, dataCollectorMatrix] = DataCollector(codewordMatrix, generatorMatrix, Parameter);
-        decodedMessageMatrix = DecodeMSR(decodeMatrix, dataCollectorMatrix, Parameter);
-        decodeMessage = GetMessageMSR(decodedMessageMatrix, Parameter, GF);
-
-        if (isequal(message, decodeMessage))
-            disp('Decoding success!');
-        else
-            error('Decoding fails!');
-        end
         
-        t(n) = toc;
-        n = n - 1;
+        totalBandwidthRegenerating = totalBandwidthRegenerating + bandwidthRegenerating;
+        regeneratingBandwidth(round) = totalBandwidthRegenerating;
+        reconstructionBandwidth(round) = bandwidthReconstruction;
     end
 else
     error('wrong code type!!');
 end
-% plot(t)
+
+key = find((regeneratingBandwidth - reconstructionBandwidth) >= 0);
+key(1)
+plot((1 : n), regeneratingBandwidth, '-r*', (1 : n), reconstructionBandwidth, '-b+')
+axis([0, (n + 2), 0, (regeneratingBandwidth(n) + regeneratingBandwidth(1))])
+xlabel('Num of failed nodes');
+ylabel('Bandwidth');
+legend('Regenerating', 'Decoding');
