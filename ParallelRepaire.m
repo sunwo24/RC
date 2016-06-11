@@ -1,4 +1,7 @@
-function [regeneratingBandwidth, reconstructionBandwidth, regeneratingTime, reconstructionTime, optPoint] = Test(codeType, Parameter)
+% Parallel Repaire
+% for (n - d) nodes fails
+
+function [regeneratingBandwidth, reconstructionBandwidth, regeneratingTime, reconstructionTime, optPoint, messageSize] = ParallelRepaire(codeType, Parameter)
     % GF(2^gfExp)
     [gfExp, U] = BaseGF(codeType, Parameter);
     GF = GaloisField(gfExp);
@@ -19,6 +22,7 @@ function [regeneratingBandwidth, reconstructionBandwidth, regeneratingTime, reco
         tic;
         % Original message
         message = RandMessage(gfExp, U);
+        messageSize = length(message);
 
         % Message Matrix d * d
         messageMatrix = MessageMatrixMBR(message, Parameter, GF);
@@ -77,6 +81,7 @@ function [regeneratingBandwidth, reconstructionBandwidth, regeneratingTime, reco
 
         % Original message
         message = RandMessage(gfExp, U);
+        messageSize = length(message);
 
         % Message Matrix d * d
         messageMatrix = MessageMatrixMSR(message, Parameter, GF);
