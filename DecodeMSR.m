@@ -1,5 +1,8 @@
 function messageMatrix = DecodeMSR(DecodeMatrix, DataCollectorMatrix, Parameter)
 
+    decodeMatrixPhi = DecodeMatrix(:, Parameter(2):(2 * Parameter(2) - 2));
+    decodeMatrixLambda = transpose(DecodeMatrix(:, 1));
+
     % Decode tMatrix and zMatrix for the code whose (d > 2 * k - 2)
     if(Parameter(3) > 2 * Parameter(2) - 2)
         decodeMatrixPhiDelta = DecodeMatrix(:, Parameter(2):(2 * Parameter(2) - 1));
@@ -18,10 +21,7 @@ function messageMatrix = DecodeMSR(DecodeMatrix, DataCollectorMatrix, Parameter)
                            * transpose(messageMatrixTZ(1:(Parameter(2) - 1), :));
     else
         messageMatrixS12 = DataCollectorMatrix;
-    end
-        
-    decodeMatrixPhi = DecodeMatrix(:, Parameter(2):(2 * Parameter(2) - 2));
-    decodeMatrixLambda = transpose(DecodeMatrix(:, 1));
+    end 
 
     messageMatrixP = messageMatrixS12 * transpose(decodeMatrixPhi);
 

@@ -3,10 +3,11 @@
 % failedNode = ID of the failed Node
 % Helpers are randomly generated
 % Vandemonder Matrix as Generator Matrix
-function MBR(Parameter)
+function [MessageSize, CodedSize, RegeneratingBandwidth, DecodingBandwidth] = MBR(Parameter)
     
     % Generate message and GF
     [message, GF] = OrgnizedMessage('MBR', Parameter);
+    MessageSize = length(message);
 
     % Generator Matrix n * d
     generatorMatrix = GeneratorMatrixMBR(Parameter, GF);
@@ -19,26 +20,27 @@ function MBR(Parameter)
 
     % Encode
     codewordMatrix = generatorMatrix * messageMatrix;
+    CodedSize = size(codewordMatrix, 1) * size(codewordMatrix, 2);
 
-    EncodingTimer = toc
+    EncodingTimer = toc;
 
     % Decode
     tic;
 
     [decodeMatrix, dataCollectorMatrix] = DataCollector(codewordMatrix, generatorMatrix, Parameter);
-    DecodingBandwidth = size(dataCollectorMatrix, 1) * size(dataCollectorMatrix, 2)
+    DecodingBandwidth = size(dataCollectorMatrix, 1) * size(dataCollectorMatrix, 2);
     decodedMessageMatrix = DecodeMBR(decodeMatrix, dataCollectorMatrix, Parameter);
     decodeMessage = GetMessageMBR(decodedMessageMatrix, Parameter, GF);
 
     if (isequal(message, decodeMessage))
         disp('Decoding success!');
-        DecodingTimer = toc
+        DecodingTimer = toc;
     else
         disp('Decoding fails!');
     end
 
     % Failed node ID
-    failedNode = RandFailedNode(Parameter)
+    failedNode = RandFailedNode(Parameter);
 
     % Helper Nodes /randomly
     tic;
@@ -48,12 +50,12 @@ function MBR(Parameter)
     % Regenerating
     [helperMessage, helperMatrix] = Helper(codewordMatrix, generatorMatrix,...
                                             failedNode, Helpers, GF);
-    RegeneratingBandwidth = size(helperMessage, 1) * size(helperMessage, 2)
+    RegeneratingBandwidth = size(helperMessage, 1) * size(helperMessage, 2);
     repairedMessage = transpose(helperMatrix \ helperMessage);
 
     if (isequal(codewordMatrix(failedNode, :), repairedMessage))
         disp('Regenerating success!');
-        RegeneratingTimer = toc
+        RegeneratingTimer = toc;
     else
         disp('Regenerating fails!');
     end

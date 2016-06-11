@@ -7,10 +7,11 @@
 % failedNode = ID of the failed Node
 % Helpers are randomly generated
 % Modified Vandemonder Matrix as Generator Matrix
-function MSR(Parameter)
+function [MessageSize, CodedSize, RegeneratingBandwidth, DecodingBandwidth] = MSR(Parameter)
     
      % Generate message and GF
     [message, GF] = OrgnizedMessage('MSR', Parameter);
+    MessageSize = length(message);
 
     % Generator Matrix n * d
     generatorMatrix = GeneratorMatrixMSR(Parameter, GF);
@@ -22,26 +23,27 @@ function MSR(Parameter)
 
     % Encode
     codewordMatrix = generatorMatrix * messageMatrix;
+    CodedSize = size(codewordMatrix, 1) * size(codewordMatrix, 2);
 
-    EncodingTimer = toc
+    EncodingTimer = toc;
 
     % Decode
     tic;
 
     [decodeMatrix, dataCollectorMatrix] = DataCollector(codewordMatrix, generatorMatrix, Parameter);
-    DecodingBandwidth = size(dataCollectorMatrix, 1) * size(dataCollectorMatrix, 2)
+    DecodingBandwidth = size(dataCollectorMatrix, 1) * size(dataCollectorMatrix, 2);
     decodedMessageMatrix = DecodeMSR(decodeMatrix, dataCollectorMatrix, Parameter);
     decodeMessage = GetMessageMSR(decodedMessageMatrix, Parameter, GF);
 
     if (isequal(message, decodeMessage))
         disp('Decoding success!');
-        DecodingTimer = toc
+        DecodingTimer = toc;
     else
         disp('Decoding fails!');
     end
 
     % Failed node ID
-    failedNode = RandFailedNode(Parameter)
+    failedNode = RandFailedNode(Parameter);
 
     % Helper Nodes /randomly
     tic;
@@ -51,7 +53,7 @@ function MSR(Parameter)
     % Regenerating
     [helperMessage, helperMatrix] = Helper(codewordMatrix,...
                                     generatorMatrix, failedNode, Helpers, GF);
-    RegeneratingBandwidth = size(helperMessage, 1) * size(helperMessage, 2)
+    RegeneratingBandwidth = size(helperMessage, 1) * size(helperMessage, 2);
     repairedMessageRe = helperMatrix \ helperMessage;
     flambda = generatorMatrix(failedNode, 1);
     repairedMessage = transpose([flambda * (repairedMessageRe(1 : (Parameter(2) - 1), :))...
@@ -60,7 +62,7 @@ function MSR(Parameter)
 
     if (isequal(codewordMatrix(failedNode, :), repairedMessage))
         disp('Regenerating success!');
-        RegeneratingTimer = toc
+        RegeneratingTimer = toc;
     else
         disp('Regenerating fails!');
     end
