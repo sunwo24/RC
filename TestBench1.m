@@ -36,24 +36,24 @@ percDecodingBandwidthMSR = sameNKMSR(:, 4);
 minRegeneratingBandwidth = sameNKMSR(:, 5);
 
 figure
-s(1) = subplot(1, 3, 1);
+s(1) = subplot(3, 1, 1);
 plot(x, percCodedSizeMBR, '--r+', x, percCodedSizeMSR, '--b+', x, codeRate, ':ko')
-axis([Parameter(1, 3), Parameter(end, 3), (codeRate(1, 1) - 0.3), (percCodedSizeMBR(1, 1) + 0.3)])
-legend('MBR', 'MSR', 'Koderate')
+axis([Parameter(1, 3) - 1, Parameter(end, 3) + 1, (codeRate(1, 1) - 0.3), (percCodedSizeMBR(1, 1) + 0.3)])
+legend('E-MBR', 'E-MSR', 'Koderate')
 xlabel('d');
 ylabel('Speicher %');
 
-s(2) = subplot(1, 3, 2);
+s(2) = subplot(3, 1, 2);
 plot(x, percRegeneratingBandwidthMBR, '--r+', x, percRegeneratingBandwidthMSR, '--b+', x, minRegeneratingBandwidth, ':kd')
-axis([Parameter(1, 3), Parameter(end, 3), (minRegeneratingBandwidth(end) - 0.05), (percRegeneratingBandwidthMSR(1) + 0.1)])
-legend('MBR', 'MSR', 'min. Bandbreite')
+axis([Parameter(1, 3) - 1, Parameter(end, 3) + 1, (minRegeneratingBandwidth(end) - 0.05), (percRegeneratingBandwidthMSR(1) + 0.05)])
+legend('SR E-MBR', 'SR E-MSR', 'theoretische Bandbreite')
 xlabel('d');
 ylabel('Bandbreite %');
 
-s(3) = subplot(1, 3, 3);
+s(3) = subplot(3, 1, 3);
 plot(x, percDecodingBandwidthMBR, '--r+', x, percDecodingBandwidthMSR, '--b+', x, percMessageSizeMBR, ':ks')
-axis([Parameter(1, 3), Parameter(end, 3), 0.9, (percDecodingBandwidthMBR(1, 1) + 0.1)])
-legend('MBR', 'MSR', 'Nachrichte')
+axis([Parameter(1, 3) - 1, Parameter(end, 3) + 1, 0.9, (percDecodingBandwidthMBR(1, 1) + 0.1)])
+legend('E-MBR', 'E-MSR', 'Datenobjekt')
 xlabel('d');
 ylabel('Bandbreite %');
 
