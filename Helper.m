@@ -10,8 +10,6 @@ function [helperMessage, helperMatrix, diskIO] = Helper(codewordMatrix, generato
         symboleHelper = codewordMatrix(Helpers(ind), :);
         diskIO = diskIO + length(symboleHelper);
 
-        diskIO = diskIO + length(symboleHelper);
-
         % Coefficient of failed node
         coeffFailedNode = generatorMatrix(failedNode,...
                           (length(generatorMatrix(Helpers(ind),:))...
