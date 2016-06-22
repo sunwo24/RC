@@ -1,4 +1,4 @@
-function [helperMessage, helperMatrix] = Helper(codewordMatrix, generatorMatrix, failedNode, Helpers, GF)
+function [helperMessage, helperMatrix, diskIO] = Helper(codewordMatrix, generatorMatrix, failedNode, Helpers, GF)
 
     helperMessage = repmat(GF(1), length(Helpers), 1);
     helperMatrix = repmat(GF(1), length(Helpers), length(Helpers));
@@ -8,6 +8,7 @@ function [helperMessage, helperMatrix] = Helper(codewordMatrix, generatorMatrix,
     for ind = 1 : length(Helpers)
         % Symboles on Helper nodes
         symboleHelper = codewordMatrix(Helpers(ind), :);
+        diskIO = diskIO + length(symboleHelper);
 
         diskIO = diskIO + length(symboleHelper);
 

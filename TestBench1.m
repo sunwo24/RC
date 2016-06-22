@@ -6,8 +6,8 @@ sameNKMSR = zeros(size(Parameter, 1), 7);
 codeRate = zeros(size(Parameter, 1), 1);
 
 for i = 1 : size(Parameter, 1)
-    [MessageSizeMBR, CodedSizeMBR, RegeneratingBandwidthMBR, DecodingBandwidthMBR] = MBR(Parameter(i, :));
-    [MessageSizeMSR, CodedSizeMSR, RegeneratingBandwidthMSR, DecodingBandwidthMSR] = MSR(Parameter(i, :));
+    [MessageSizeMBR, CodedSizeMBR, RegeneratingBandwidthMBR, DecodingBandwidthMBR, diskIO] = MBR(Parameter(i, :));
+    [MessageSizeMSR, CodedSizeMSR, RegeneratingBandwidthMSR, DecodingBandwidthMSR, diskIO] = MSR(Parameter(i, :));
 
     sameNKMBR(i, 1) = MessageSizeMBR/MessageSizeMBR;
     sameNKMBR(i, 2) = CodedSizeMBR/MessageSizeMBR;

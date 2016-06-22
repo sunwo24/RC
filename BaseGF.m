@@ -11,6 +11,13 @@ function [gfExp, U] = BaseGF(codeType, Parameter)
         end
     elseif (strcmp(codeType, 'MBR'))
         U = k * (k + 1) / 2 + k * (d - k);
+    elseif (strcmp(codeType, 'MISER'))
+        if (d == 2 * k - 1)
+            U = k * (d - k + 1);
+        else
+            k
+            error('wrong parameter!');
+        end
     else
         error('wrong code type!!');
     end

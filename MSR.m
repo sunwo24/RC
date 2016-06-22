@@ -7,7 +7,7 @@
 % failedNode = ID of the failed Node
 % Helpers are randomly generated
 % Modified Vandemonder Matrix as Generator Matrix
-function [MessageSize, CodedSize, RegeneratingBandwidth, DecodingBandwidth] = MSR(Parameter)
+function [MessageSize, CodedSize, RegeneratingBandwidth, DecodingBandwidth, diskIO] = MSR(Parameter)
     
      % Generate message and GF
     [message, GF] = OrgnizedMessage('MSR', Parameter);
@@ -51,7 +51,7 @@ function [MessageSize, CodedSize, RegeneratingBandwidth, DecodingBandwidth] = MS
     Helpers = HelperNodes(Parameter, failedNode);
 
     % Regenerating
-    [helperMessage, helperMatrix] = Helper(codewordMatrix,...
+    [helperMessage, helperMatrix, diskIO] = Helper(codewordMatrix,...
                                     generatorMatrix, failedNode, Helpers, GF);
     RegeneratingBandwidth = size(helperMessage, 1) * size(helperMessage, 2);
     repairedMessageRe = helperMatrix \ helperMessage;
