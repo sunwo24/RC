@@ -21,7 +21,7 @@ availNumNodesPR = availNumNodes(:, 1);
 availNumNodesMDSR = availNumNodes(:, 2);
 
 plot(x, optimalPointMBR, '--r*', x, optimalPointMSR, '--b+', x, availNumNodesPR, '--ko', x, availNumNodesMDSR, '--ks')
-axis([Parameter(1, 3) - 0.5, Parameter(end, 3) + 0.5, (optimalPointMSR(end, 1) - 1), (availNumNodes(1, 2) + 3)])
+axis([Parameter(1, 3) - 0.5, Parameter(end, 3) + 0.5, (optimalPointMSR(end, 1) - 1), (availNumNodes(1, 2) + 2)])
 legend('E-MBR', 'E-MSR', 'max. PR |f|', 'max. MDSR |f|')
 xlabel('d');
-ylabel('Optimalpunkt');
+ylabel('Optimalpunkt |f|');

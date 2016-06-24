@@ -49,7 +49,7 @@ figure
 s(1) = subplot(4, 1, 1);
 plot(x, percCodedSizeMBR, '--r+', x, percCodedSizeMSR, '--b+', x, codeRate, ':ko')
 axis([Parameter(1, 3) - 1, Parameter(end, 3) + 1, (codeRate(1, 1) - 0.3), (percCodedSizeMBR(1, 1) + 0.3)])
-legend('E-MBR', 'E-MSR', 'Koderate')
+legend('E-MBR', 'E-MSR', 'Grenze')
 xlabel('d');
 ylabel('Speicher %');
 
