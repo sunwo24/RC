@@ -1,7 +1,7 @@
 % Test parallel repaire
 % Same (n, k, d) and max. (n - d) node fail
 
-Parameter = [60, 20, 38];
+Parameter = [15, 4, 7];
 
 [regBandwidthMBR, decodeBandwidthMBR, regTimeMBR, decodeTimeMBR, optPointMBR, messageSizeMBR] = ParallelRepaire('MBR', Parameter);
 
@@ -23,14 +23,14 @@ plot(x, regBandwidthMBR, '--r+', x, decodeBandwidthMBR, '--r*')
 axis([0, x(end) + 1, (min(regBandwidthMBR(1), decodeBandwidthMBR(1)) - 0.5), (max(regBandwidthMBR(end), decodeBandwidthMBR(end)) + 0.5)])
 legend('PR E-MBR', 'MDSR E-MBR')
 xlabel('Anzahl der ausgefallenen Knoten');
-ylabel('Bandbreite %');
+ylabel('Reparatur-Bandbreite %');
 
 s(2) = subplot(2, 2, 3);
 plot(x, regBandwidthMSR, '--b+', x, decodeBandwidthMSR, '--b*')
 axis([0, x(end) + 1, (regBandwidthMSR(1) - 0.5), (regBandwidthMSR(end) + 0.5)])
 legend('PR E-MSR', 'MDSR E-MSR')
 xlabel('Anzahl der ausgefallenen Knoten');
-ylabel('Bandbreite %');
+ylabel('Reparatur-Bandbreite %');
 
 s(3) = subplot(2, 2, 2);
 plot(x, regTimeMBR, '--r+',x, decodeTimeMBR, '--r*')

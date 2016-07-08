@@ -1,4 +1,4 @@
-function [optimalPointMBR, optimalPointMSR] = OptimalPoint(Parameter)
+function [optimalPointMBR, optimalPointMSR, optimalPointRC] = OptimalPoint(Parameter)
 
 [regBandwidthMBR, decodeBandwidthMBR, regTimeMBR, decodeTimeMBR, optPointMBR, messageSizeMBR] = ParallelRepaire('MBR', Parameter);
 
@@ -15,5 +15,9 @@ for i = 1 : (Parameter(1) - Parameter(3))
     decodeBandwidthMSR(i) = decodeBandwidthMSR(i) / messageSizeMSR;
     if (regBandwidthMSR(i) <= decodeBandwidthMSR(i))
       optimalPointMSR = i;
+    end
+    
+    if ((regBandwidthMBR(i) <= decodeBandwidthMSR(i)) || (regBandwidthMSR(i) <= decodeBandwidthMSR(i)))
+        optimalPointRC = i;
     end
 end
