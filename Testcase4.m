@@ -1,4 +1,4 @@
-% Evaluation Disk-I/O by regenerating for MSR and MISER
+% Evaluation Disk-I/O by regenerating for E-MSR and MISER
 
 MSRCode = zeros(size(Parameter, 1), 3);
 MISERCode = zeros(size(Parameter, 1), 3);
