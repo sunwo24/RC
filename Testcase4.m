@@ -1,4 +1,4 @@
-% Evaluate Disk-I/O by regenerating
+% Evaluation Disk-I/O by regenerating for MSR and MISER
 
 MSRCode = zeros(size(Parameter, 1), 3);
 MISERCode = zeros(size(Parameter, 1), 3);
@@ -25,6 +25,7 @@ axis([Parameter(1, 2) - 0.5, Parameter(end, 2) + 0.5, (MISERCode(1, 1) - 3), (MS
 legend('E-MSR Disk-I/O', 'MISER Disk-I/O', 'E-MSR Datenobjekt', 'MISER Datenobjekt')
 xlabel('k');
 ylabel('Disk-I/O');
+set(gca,'XTick',[1:1:7]);
 
 s(2) = subplot(2, 1, 2);
 plot(x, MSRCode(:, 3), ':r+', x, MISERCode(:, 3), '--bo', x, MSRCode(:, 2), ':r*', x, MISERCode(:, 2), '--bs')
@@ -32,3 +33,4 @@ axis([Parameter(1, 2) - 0.5, Parameter(end, 2) + 0.5, (MISERCode(1, 3) - 3), (MS
 legend('E-MSR Regenerating', 'MISER Regenerating', 'E-MSR Datenobjekt', 'MISER Datenobjekt')
 xlabel('k');
 ylabel('Regenerating-Bandbreite');
+set(gca,'XTick',[1:1:7]);

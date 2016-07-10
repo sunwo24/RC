@@ -1,4 +1,4 @@
-% Test parallel repaire
+% Bandwidth and time by parallel repaire
 % Same (n, k, d) and max. (n - d) node fail
 
 Parameter = [15, 4, 7];

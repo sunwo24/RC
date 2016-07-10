@@ -1,5 +1,5 @@
 % same n, k of MBR and MSR
-% compare disk size, regenerating bandwidth and decoding bandwidth with all possible d.
+% compare storage size, regenerating bandwidth and decoding bandwidth with all possible d.
 
 sameNKMBR = zeros(size(Parameter, 1), 7);
 sameNKMSR = zeros(size(Parameter, 1), 7);
@@ -72,5 +72,5 @@ plot(x, percDecodingBandwidthMBR, '--r+', x, percDecodingBandwidthMSR, '--b+', x
 axis([Parameter(1, 3) - 1, Parameter(end, 3) + 1, 0.9, (percDecodingBandwidthMBR(1, 1) + 0.1)])
 legend('E-MBR', 'E-MSR', 'Datenobjekt')
 xlabel('d');
-ylabel('Dekodierung-Bandbreite %');
+ylabel('Dekodierungs-Bandbreite %');
 

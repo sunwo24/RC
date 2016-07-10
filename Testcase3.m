@@ -1,5 +1,5 @@
 % same (n, k) and all possible (d)
-% get the optimal point of parallel repaire
+% get the optimal point of parallel repaire and MDS repaire
 
 optimalPoint = zeros(size(Parameter, 1), 3);
 availNumNodes = zeros(size(Parameter, 1), 2);
