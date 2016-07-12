@@ -10,7 +10,7 @@
 function [MessageSize, CodedSize, RegeneratingBandwidth, DecodingBandwidth, diskIO] = MSR(Parameter)
     
      % Generate message and GF
-    [message, GF] = OrgnizedMessage('MSR', Parameter);
+    [message, GF] = OrganizedMessage('MSR', Parameter);
     MessageSize = length(message);
 
     % Generator Matrix n * d

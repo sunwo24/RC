@@ -1,6 +1,6 @@
 % Generate a message array with the elements from 1 to U
 % Elements in GF(2^exp)
-function [message, GF] = OrgnizedMessage(codeType, Parameter)
+function [message, GF] = OrganizedMessage(codeType, Parameter)
 
   % GF(2^gfExp)
   [gfExp, U] = BaseGF(codeType, Parameter);

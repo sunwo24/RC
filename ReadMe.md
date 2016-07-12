@@ -1,14 +1,14 @@
-## Implentation for Regenerating Codes
+## Implementation for Regenerating Codes
 1. Generator matrix depends only on the parameter of codes, not on the encoded message.
 2. All elements of matrixes and messages are represented in galois field GF(2^exp).
 3. Arithmatric is based on the prime polynomial of galois field.
 
 #### MBR
-* Implentation of exact regenerating for (n, k, d) MBR.
-* There are two generator matrixes available: systemetical and non-systemetical generator matrix.
-* The encoded message is defined as organized numbers [1, 2, ..., U].
+* Implementation of exact regenerating for (n, k, d) MBR.
+* There are two generator matrixes available: systematical and non-systematical generator matrix.
+* The encoded message is defined as organized numbers [1, 2, ..., |U|].
 * Failed node and helpers are generated randomly.
-* Results of regenerating and non-systemetical decoding will be showed.
+* Results of regenerating and non-systematical decoding will be showed.
 
 ```
   function [MessageSize, CodedSize, RegeneratingBandwidth, DecodingBandwidth, diskIO] = MBR(Parameter)
@@ -25,9 +25,9 @@ Return values of this function are:
   5. diskIO: Disk-I/O during a regenerating process.
   
 #### MSR
-* Implentation of exact regenerating for (n, k, d >= 2k - 2) MSR.
-* There is only non-systemetical generator matrix available.
-* The encoded message is defined as organized numbers [1, 2, ..., U].
+* Implementation of exact regenerating for (n, k, d >= 2k - 2) MSR.
+* There is only non-systematical generator matrix available.
+* The encoded message is defined as organized numbers [1, 2, ..., |U|].
 * Failed node and helpers are generated randomly.
 * Result of regenerating and decoding will be showed.
 
@@ -46,9 +46,9 @@ Return values of this function are:
   5. diskIO: Disk-I/O during a regenerating process.
 
 #### MISER
-* Implentation of interference alignment for (n = 2k, k, d = 2k - 1) MISER.
-* There is only systemetical generator matrix available.
-* The encoded message is defined as organized numbers [1, 2, ..., U].
+* Implementation of interference alignment for (n = 2k, k, d = 2k - 1) MISER.
+* There is only systematical generator matrix available.
+* The encoded message is defined as organized numbers [1, 2, ..., |U|].
 * Failed node and helpers are generated randomly.
 * Result of regenerating will be showed.
 
@@ -65,12 +65,12 @@ Return values of this function are:
   3. RegeneratingBandwidth: Bandwidth to regenerating a failed node.
   4. diskIO: Disk-I/O during a regenerating process.
 
-#### Paralle Repaire
-* Generator matrix is defined for each parameter at first time running. For later encoding of messages with same parameter, new generator matrix will not be created any more. 
+#### Parallel Repair
+* Generator matrix is defined for each parameter at first time running. For later encoding of messages with same parameter, new generator matrix will not be created again. 
 * Whether the failed node is regenerated correctly or not, will be showed.
 
 ```
-  function [regeneratingBandwidth, reconstructionBandwidth, regeneratingTime, reconstructionTime, optPoint, messageSize] = ParallelRepaire(codeType, Parameter)
+  function [regeneratingBandwidth, reconstructionBandwidth, regeneratingTime, reconstructionTime, optPoint, messageSize] = ParallelRepair(codeType, Parameter)
 ```
 Parameters are defined as below:
 ```
@@ -98,11 +98,11 @@ The values of parameters should be loaded, before running test cases. The predef
 * From (30, 10, 18) to (30 10 , 29)
 * From (60, 20, 38) to (60, 20, 59)
 * (2k, k, 2k - 1) which k is from 2 to 7
-Users can define parameters by themself, follow the pattern of (n, k, d >= 2k - 2) for E-MBR and E-MSR, (2k, k, 2k - 1) for MISER.
+* Users can define parameters by themself, follow the pattern of (n, k, d >= 2k - 2) for E-MBR and E-MSR, (2k, k, 2k - 1) for MISER.
 
 The available Test cases are:
-  1. Testcase1: Ploting *Speicher %*, *Reparatur-Bandbreite %*, *Reparatur-Bandbreite* and *Dekodierungs-Bandbreite %* with different Reparatur-Localities d.
-  1. Testcase2: Ploting *Reparatur-Bandbreite %* and *Zeit / s* for E-MBR and E-MSR.
-  3. Testcase3: Ploting *Optimalpunkt* of E-MBR, E-MSR and E-RC with different Reparatur-Localities d.
-  4. Testcase4: Ploting *Regenerating-Bandbreite* and *Disk-I/O* of E-MSR and MISER with different k.
+  1. Testcase1: Plotting *Speicher %*, *Reparatur-Bandbreite %*, *Reparatur-Bandbreite* and *Dekodierungs-Bandbreite %* with different Reparatur-Localities d.
+  1. Testcase2: Plotting *Reparatur-Bandbreite %* and *Zeit / s* for E-MBR and E-MSR.
+  3. Testcase3: Plotting *Optimalpunkt* of E-MBR, E-MSR and E-RC with different Reparatur-Localities d.
+  4. Testcase4: Plotting *Regenerating-Bandbreite* and *Disk-I/O* of E-MSR and MISER with different k.
 

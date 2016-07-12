@@ -1,7 +1,7 @@
 % Parallel Repaire
 % for (n - d) nodes fails
 
-function [regeneratingBandwidth, reconstructionBandwidth, regeneratingTime, reconstructionTime, optPoint, messageSize] = ParallelRepaire(codeType, Parameter)
+function [regeneratingBandwidth, reconstructionBandwidth, regeneratingTime, reconstructionTime, optPoint, messageSize] = ParallelRepair(codeType, Parameter)
     % GF(2^gfExp)
     [gfExp, U] = BaseGF(codeType, Parameter);
     GF = GaloisField(gfExp);

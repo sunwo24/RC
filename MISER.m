@@ -3,7 +3,7 @@
 function [MessageSize, CodedSize, RegeneratingBandwidth, diskIO] = MISER(Parameter)
     
     % Generate message and GF
-    [message, GF] = OrgnizedMessage('MISER', Parameter);
+    [message, GF] = OrganizedMessage('MISER', Parameter);
     MessageSize = length(message);
 
     % Generator Matrix (alphaSize * k) * (alphaSize * n)

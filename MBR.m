@@ -6,7 +6,7 @@
 function [MessageSize, CodedSize, RegeneratingBandwidth, DecodingBandwidth, diskIO] = MBR(Parameter)
     
     % Generate message and GF
-    [message, GF] = OrgnizedMessage('MBR', Parameter);
+    [message, GF] = OrganizedMessage('MBR', Parameter);
     MessageSize = length(message);
 
     % Generator Matrix n * d

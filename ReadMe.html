@@ -722,7 +722,7 @@ pre {
   border-color: #4078c0;
 }
 </style><title>ReadMe</title></head><body><article class="markdown-body"><h2>
-<a id="user-content-implentation-for-regenerating-codes" class="anchor" href="#implentation-for-regenerating-codes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Implentation for Regenerating Codes</h2>
+<a id="user-content-implementation-for-regenerating-codes" class="anchor" href="#implementation-for-regenerating-codes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Implementation for Regenerating Codes</h2>
 
 <ol>
 <li>Generator matrix depends only on the parameter of codes, not on the encoded message.</li>
@@ -734,11 +734,11 @@ pre {
 <a id="user-content-mbr" class="anchor" href="#mbr" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MBR</h4>
 
 <ul>
-<li>Implentation of exact regenerating for (n, k, d) MBR.</li>
-<li>There are two generator matrixes available: systemetical and non-systemetical generator matrix.</li>
-<li>The encoded message is defined as organized numbers [1, 2, ..., U].</li>
+<li>Implementation of exact regenerating for (n, k, d) MBR.</li>
+<li>There are two generator matrixes available: systematical and non-systematical generator matrix.</li>
+<li>The encoded message is defined as organized numbers [1, 2, ..., |U|].</li>
 <li>Failed node and helpers are generated randomly.</li>
-<li>Results of regenerating and non-systemetical decoding will be showed.</li>
+<li>Results of regenerating and non-systematical decoding will be showed.</li>
 </ul>
 
 <pre><code>  function [MessageSize, CodedSize, RegeneratingBandwidth, DecodingBandwidth, diskIO] = MBR(Parameter)
@@ -763,9 +763,9 @@ pre {
 <a id="user-content-msr" class="anchor" href="#msr" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MSR</h4>
 
 <ul>
-<li>Implentation of exact regenerating for (n, k, d &gt;= 2k - 2) MSR.</li>
-<li>There is only non-systemetical generator matrix available.</li>
-<li>The encoded message is defined as organized numbers [1, 2, ..., U].</li>
+<li>Implementation of exact regenerating for (n, k, d &gt;= 2k - 2) MSR.</li>
+<li>There is only non-systematical generator matrix available.</li>
+<li>The encoded message is defined as organized numbers [1, 2, ..., |U|].</li>
 <li>Failed node and helpers are generated randomly.</li>
 <li>Result of regenerating and decoding will be showed.</li>
 </ul>
@@ -792,9 +792,9 @@ pre {
 <a id="user-content-miser" class="anchor" href="#miser" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MISER</h4>
 
 <ul>
-<li>Implentation of interference alignment for (n = 2k, k, d = 2k - 1) MISER.</li>
-<li>There is only systemetical generator matrix available.</li>
-<li>The encoded message is defined as organized numbers [1, 2, ..., U].</li>
+<li>Implementation of interference alignment for (n = 2k, k, d = 2k - 1) MISER.</li>
+<li>There is only systematical generator matrix available.</li>
+<li>The encoded message is defined as organized numbers [1, 2, ..., |U|].</li>
 <li>Failed node and helpers are generated randomly.</li>
 <li>Result of regenerating will be showed.</li>
 </ul>
@@ -817,14 +817,14 @@ pre {
 </ol>
 
 <h4>
-<a id="user-content-paralle-repaire" class="anchor" href="#paralle-repaire" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Paralle Repaire</h4>
+<a id="user-content-parallel-repair" class="anchor" href="#parallel-repair" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parallel Repair</h4>
 
 <ul>
-<li>Generator matrix is defined for each parameter at first time running. For later encoding of messages with same parameter, new generator matrix will not be created any more. </li>
+<li>Generator matrix is defined for each parameter at first time running. For later encoding of messages with same parameter, new generator matrix will not be created again. </li>
 <li>Whether the failed node is regenerated correctly or not, will be showed.</li>
 </ul>
 
-<pre><code>  function [regeneratingBandwidth, reconstructionBandwidth, regeneratingTime, reconstructionTime, optPoint, messageSize] = ParallelRepaire(codeType, Parameter)
+<pre><code>  function [regeneratingBandwidth, reconstructionBandwidth, regeneratingTime, reconstructionTime, optPoint, messageSize] = ParallelRepair(codeType, Parameter)
 </code></pre>
 
 <p>Parameters are defined as below:</p>
@@ -861,16 +861,16 @@ pre {
 <li>From (20, 6, 10) to (20, 6, 19)</li>
 <li>From (30, 10, 18) to (30 10 , 29)</li>
 <li>From (60, 20, 38) to (60, 20, 59)</li>
-<li>(2k, k, 2k - 1) which k is from 2 to 7
-Users can define parameters by themself, follow the pattern of (n, k, d &gt;= 2k - 2) for E-MBR and E-MSR, (2k, k, 2k - 1) for MISER.</li>
+<li>(2k, k, 2k - 1) which k is from 2 to 7</li>
+<li>Users can define parameters by themself, follow the pattern of (n, k, d &gt;= 2k - 2) for E-MBR and E-MSR, (2k, k, 2k - 1) for MISER.</li>
 </ul>
 
 <p>The available Test cases are:</p>
 
 <ol>
-<li>Testcase1: Ploting <em>Speicher %</em>, <em>Reparatur-Bandbreite %</em>, <em>Reparatur-Bandbreite</em> and <em>Dekodierungs-Bandbreite %</em> with different Reparatur-Localities d.</li>
-<li>Testcase2: Ploting <em>Reparatur-Bandbreite %</em> and <em>Zeit / s</em> for E-MBR and E-MSR.</li>
-<li>Testcase3: Ploting <em>Optimalpunkt</em> of E-MBR, E-MSR and E-RC with different Reparatur-Localities d.</li>
-<li>Testcase4: Ploting <em>Regenerating-Bandbreite</em> and <em>Disk-I/O</em> of E-MSR and MISER with different k.</li>
+<li>Testcase1: Plotting <em>Speicher %</em>, <em>Reparatur-Bandbreite %</em>, <em>Reparatur-Bandbreite</em> and <em>Dekodierungs-Bandbreite %</em> with different Reparatur-Localities d.</li>
+<li>Testcase2: Plotting <em>Reparatur-Bandbreite %</em> and <em>Zeit / s</em> for E-MBR and E-MSR.</li>
+<li>Testcase3: Plotting <em>Optimalpunkt</em> of E-MBR, E-MSR and E-RC with different Reparatur-Localities d.</li>
+<li>Testcase4: Plotting <em>Regenerating-Bandbreite</em> and <em>Disk-I/O</em> of E-MSR and MISER with different k.</li>
 </ol>
 </article></body></html>
